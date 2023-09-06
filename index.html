@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bar Chart Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto);
+
+    body {
+        font-family: Inter, Roboto, sans-serif;
+            margin: 0;
+            color: #2B303A;
+    }
+
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    #chart,
+    #chart2,
+    #chart3,
+    #chart4 {
+        max-width: 650px;
+        width: 100%;
+        margin: 24px auto;
+    }
+
+    input {
+        width:100px;
+        margin-right: 7px;
+        border: 1px #fff solid;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        padding: 8px 10px;
+    }
+    input:hover {
+        width:100px;
+        margin-right: 7px;
+        border: 1px #ccc solid;
+
+        border-radius: 4px;
+        padding: 8px 10px;
+    }
+    button {
+        background-color: #000;
+        border: 0;
+        color: #fff;
+        font-family: 'Inter';
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        height: 32px;
+    }
+     button:hover {
+        background-color: #00f;
+        border: 0;
+        color: #fff;
+        font-family: 'Inter';
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    label {
+        font-size: 10px;
+        color: #555;
+        text-transform: uppercase;
+    }
+
+    .kn {
+        font-family: 'Mulish';
+        font-size: 28px;
+        display: flex;
+        justify-content: top;
+        line-height: 50px;
+        margin-top: 38px;
+        flex-direction: column;
+        white-space: nowrap;
+    }
+
+    .kn-wrapper {
+        display: flex;
+        max-width: 750px;
+        margin: auto;
+    }
+
+    .card {
+        position: relative;
+        width: 1100px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        background: #FFFFFF;
+        box-shadow: 0 3px 6px rgb(0 0 0 / 8%), 0 1px 2px rgb(0 0 0 / 12%);
+        border-radius: 6px;
+        padding: 20px;
+    }
+
+    </style>
+    <script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("ProtocolStake").value = JSON.stringify(chartData.series[0].data[0].y);
+        document.getElementById("DistributionBalance").value = JSON.stringify(chartData.series[1].data[0].y);
+        document.getElementById("DistributedBalance").value = JSON.stringify(chartData.series[2].data[0].y);
+        document.getElementById("Reserves").value = JSON.stringify(chartData.series[4].data[0].y);
+        document.getElementById("Cash").value = JSON.stringify(chartData.series[5].data[0].y);
+    }
+
+    function rerender() {
+        chartData.series[0].data[0].y = document.getElementById("ProtocolStake").value;
+        chartData.series[1].data[0].y = document.getElementById("DistributionBalance").value;
+        chartData.series[2].data[0].y = document.getElementById("DistributedBalance").value;
+        chartData.series[4].data[0].y = document.getElementById("Reserves").value;
+        chartData.series[5].data[0].y = document.getElementById("Cash").value;
+
+        var protocolStake = document.getElementById("ProtocolStake").value;
+        var protocolStakeNum = Number(protocolStake);
+
+
+        var bar1 = Number(chartData.series[0].data[0].y) + Number(chartData.series[1].data[0].y) + Number(chartData.series[2].data[0].y);
+        var bar2 = Number(chartData.series[4].data[0].y) + Number(chartData.series[5].data[0].y);
+
+        var maxMintingLimit = chartData.series[0].data[0].y * 10;
+
+        var highestBarNumber = Math.max(bar1, bar2, maxMintingLimit);
+
+        if (protocolStakeNum < 100) {
+            var mintingLimit1 = 1000;
+            var mintingLimit2 = 1003;
+            var minProtocolStake1 = protocolStakeNum;
+            var minProtocolStake2 = 103;
+        } else {
+            var mintingLimit1 = chartData.series[0].data[0].y * 10;
+            var mintingLimit2 = mintingLimit1 + 3;
+            var minProtocolStake = 0;
+
+        };
+
+        if (bar1 <= mintingLimit1) {
+
+            var mintingLimitError = 0;
+            var mintingLimitErrorLabel = "";
+
+        } else {
+
+            var mintingLimitError = 0.15;
+            var mintingLimitErrorLabel = "2";
+        };
+
+        options.annotations.xaxis[0].x = minProtocolStake1;
+        options.annotations.xaxis[0].x2 = minProtocolStake2;
+
+        options.annotations.xaxis[2].x = mintingLimit1;
+        options.annotations.xaxis[2].x2 = mintingLimit2;
+
+        options.annotations.xaxis[3].x = mintingLimit1;
+        options.annotations.xaxis[3].x2 = highestBarNumber;
+
+        options.annotations.xaxis[3].opacity = mintingLimitError;
+        options.annotations.xaxis[3].label.text = mintingLimitErrorLabel;
+
+        
+
+        if (bar1 <= Number(chartData.series[4].data[0].y)) {
+
+            var collateralError1 = Number(chartData.series[4].data[0].y);
+            var collateralError2 = Number(chartData.series[4].data[0].y);
+            var collateralErrorLabel = "";
+
+        } else {
+
+            var collateralError1 = Number(chartData.series[4].data[0].y);
+            var collateralError2 = Number(chartData.series[4].data[0].y) + Number(chartData.series[5].data[0].y);
+            var collateralErrorLabel = "3";
+        };
+        
+        options.annotations.xaxis[4].x = collateralError1;
+        options.annotations.xaxis[4].x2 = collateralError2;
+        options.annotations.xaxis[4].label.text = collateralErrorLabel;
+        
+
+        chart.updateOptions({
+            xaxis: {
+                max: `${highestBarNumber}`,
+            },
+        });
+
+        chart.render();
+    }
+    </script>
+</head>
+
+<body>
+    <div style="display:flex; width:100%;background-color: #F8F9FA !important;">
+        <div style="width:250px; background-color: #fff;padding-left: 20px;padding-top: 40px;border-right: 1px solid rgba(0,0,0,0.08);z-index: 10;font-size: 14px;position: fixed;height:100vh;overflow: scroll;">
+            <div style="height:24px;display: flex;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 751.99 376.85" xml:space="preserve">
+                    <path fill="rgb(41 24 63)" d="M474.96,111.62H679.9c4.7,0,8.08,4.52,6.75,9.02l-7.39,21.32c-0.89,3.02-3.66,5.09-6.8,5.09l-203,0.06
+      L474.96,111.62z M474.6,277.76l173.61-0.06c2.69,0,5.06-2.07,5.82-5.09l6.32-21.32c1.14-4.51-1.75-9.02-5.77-9.02H479.31
+      L474.6,277.76z M482.79,211.45l234.74-0.06c3.64,0,6.84-2.07,7.87-5.09l8.55-21.32c1.54-4.51-2.37-9.02-7.8-9.02H489.15
+      L482.79,211.45z M109.54,362.23c-0.06,0-0.12,0-0.18,0.01c-2.32,0.1-86.3-0.27-86.3-0.27c-3.11-0.02-5.44-2.84-4.89-5.9l5.76-31.63
+      c0.43-2.38,2.51-4.11,4.94-4.1l77.7,0.28c33.58-0.32,65.1-13.64,88.75-37.5c23.81-24.03,36.86-55.94,36.7-89.79
+      c-0.15-31.04-11.75-61.13-32.55-84.16c-23.48-26.01-55.92-40.93-90.7-41.86c-0.05,0-0.11,0-0.16,0L75,67.31
+      c-3.13,0-5.49-2.83-4.92-5.91c1.6-8.6,4.51-24.33,5.89-31.73c0.44-2.36,2.48-4.06,4.88-4.07c12.03-0.04,25.04-0.07,26.1-0.04
+      c38.67,1.1,76.07,15.64,105.32,40.96c13,11.25,24.18,24.37,33.21,38.99c1.52,2.47,4.41,3.72,7.37,3.06
+      c1.82-0.41,3.34-1.65,4.32-3.23c14.82-23.92,35.57-43.92,60-57.85c25.25-14.39,54.05-22,83.29-22h127.65c3.12,0,5.48,2.83,4.92,5.9
+      l-5.81,31.77c-0.43,2.37-2.5,4.1-4.92,4.1L399.9,67.32c-0.06,0-0.12,0-0.18,0c-33,1.02-63.85,14.65-86.89,38.37
+      c-23.09,23.77-35.8,55.11-35.8,88.25c0,69.86,56.83,126.69,126.69,126.69c0.08,0,0.15,0,0.23,0l171.13-0.55
+      c3.13-0.01,5.5,2.82,4.93,5.9l-5.91,32.3c-0.43,2.37-2.5,4.1-4.92,4.1h-165c-0.19-0.01-0.38-0.02-0.57-0.02l-0.27,0
+      c-0.95,0.02-1.91,0.04-2.86,0.04c-29.26,0-58.08-7.62-83.33-22.02c-24.51-13.98-45.3-34.06-60.12-58.08
+      c-1.24-2.01-3.39-3.21-5.75-3.21s-4.51,1.2-5.75,3.21C216.13,329.92,165.29,359.8,109.54,362.23z"></path>
+                </svg></div>
+            <h1 style="margin-top:10px !important;">Chart library</h1>
+            <span style="color: #6B7280;">We start here :-)</span>
+           
+        </div>
+        <div style="width: 85%; margin-left: 250px;">
+            <div style="display:flex;flex-direction: column;">
+                <div class="card">
+                    <div class="kn-wrapper">
+                        <div class="kn">
+                            <div style="flex-wrap: nowrap;">1,200 <span style="font-size: 12px;">ABC</span></div>$1,300
+                        </div>
+                        <div id="chart"></div>
+                    </div>
+                    <script>
+                        // Sample data for the bar chart
+                    var chartData = {
+
+                        series: [{
+                                name: 'Protocol stake',
+                                group: 1,
+                                data: [{
+                                    x: 'Protocol stake',
+                                    y: 90,
+                                }]
+                            },
+                            {
+                                name: 'Distribution balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distribution balance',
+                                    y: 850
+                                }]
+                            },
+                            {
+                                name: 'Distributied balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distributied balance',
+                                    y: 250
+                                }]
+                            },
+                            {
+                                name: '',
+                                group: 3,
+                                data: [{
+                                    x: '',
+                                    y: 0
+                                }]
+                            },
+                            {
+                                name: 'Reserves',
+                                group: 2,
+                                data: [{
+                                    x: 'Reserves',
+                                    y: 900
+                                }]
+                            },
+                            {
+                                name: 'Cash',
+                                group: 2,
+                                data: [{
+                                    x: 'Cash',
+                                    y: 400
+                                }]
+                            },
+                        ],
+                        xaxis: {
+                            categories: ['']
+                        }
+                    };
+
+                    // Create a bar chart
+                    var options = {
+                        annotations: {
+                            xaxis: [{
+                                    x: 90,
+                                    x2: 100,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EF4444",
+                                    borderColor: "#EC4899",
+                                    opacity: 0.15,
+                                    offsetX: 0,
+                                    offsetY: -21,
+                                    width: '30%',
+                                    label: {
+                                        borderColor: "#EF4444",
+                                        borderWidth: 1,
+                                        text: "1",
+                                        textAnchor: "middle",
+                                        orientation: "horizontal",
+                                        position: "bottom",
+                                        offsetX: 0,
+                                        offsetY: -35,
+                                        style: {
+                                            background: "#EF4444",
+                                            color: "#fff",
+                                            fontSize: "11px",
+                                            cssClass: "",
+                                            padding: { left: 5, right: 5, top: 2, bottom: 2 }
+                                        }
+                                    }
+                                },
+                                {
+                                    x: 900,
+                                    x2: null,
+                                    strokeDashArray: 3,
+                                    fillColor: "#c2c2c2",
+                                    borderColor: "#6B7280",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: 0,
+
+                                },
+                                {
+                                    x: 1000,
+                                    x2: 1003,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EC4899",
+                                    borderColor: "#EC4899",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: -21,
+                                },
+
+                                {
+                                    x: 1000,
+                                    x2: 1300,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EF4444",
+                                    opacity: 0.15,
+                                    offsetX: 0,
+                                    offsetY: -23,
+                                    width: '30%',
+                                    label: {
+                                        borderColor: "#EF4444",
+                                        borderWidth: 1,
+                                        text: "2",
+                                        textAnchor: "middle",
+                                        orientation: "horizontal",
+                                        position: "bottom",
+                                        offsetX: 0,
+                                        offsetY: -35,
+                                        style: {
+                                            background: "#EF4444",
+                                            color: "#fff",
+                                            fontSize: "11px",
+                                            cssClass: "",
+                                            padding: { left: 5, right: 5, top: 2, bottom: 2 }
+                                        }
+                                    }
+                                },
+                                {
+                                    x: 900,
+                                    x2: 1190,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EF4444",
+                                    borderColor: "#EC4899",
+                                    opacity: 0.15,
+                                    offsetX: 0,
+                                    offsetY: 45,
+                                    width: '30%',
+                                    label: {
+                                        borderColor: "#EF4444",
+                                        borderWidth: 1,
+                                        text: "3",
+                                        textAnchor: "middle",
+                                        orientation: "horizontal",
+                                        position: "bottom",
+                                        offsetX: 0,
+                                        offsetY: 0,
+                                        style: {
+                                            background: "#EF4444",
+                                            color: "#fff",
+                                            fontSize: "11px",
+                                            cssClass: "",
+                                            padding: { left: 5, right: 5, top: 2, bottom: 2 }
+                                        }
+                                    }
+                                },
+                                {
+                                    x: 100,
+                                    x2: 101,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EC4899",
+                                    borderColor: "#EC4899",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: -21,
+                                },
+                            ],
+
+                        },
+                        chart: {
+                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
+                            type: 'bar',
+                            stacked: true,
+                            height: 190,
+                            toolbar: {
+                                autoSelected: "pan",
+                                show: false,
+                            },
+                        },
+                        tooltip: {
+                            followCursor: true,
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+
+                        plotOptions: {
+
+                            bar: {
+                                horizontal: true,
+                                barHeight: '80%',
+                            },
+                        },
+                        fill: {
+                            opacity: 1,
+                        },
+                        xaxis: {
+                            categories: chartData.xaxis.categories,
+                            tickAmount: 4,
+                            max: 1300,
+                            axisBorder: {
+                                show: true,
+                                height: 0,
+                            },
+                            crosshairs: {
+                                show: true,
+                            },
+                            tooltip: {
+                                enabled: true,
+
+                            },
+
+                            labels: {
+                                style: {
+                                    fontSize: '10px',
+                                    colors: '#ccc',
+                                }
+                            }
+
+                        },
+                        series: chartData.series,
+
+                        colors: ['#EC4899', '#38BDF8', '#3B82F6', '#fff', '#16A34A', '#F1F5F9'],
+                        legend: {
+                            show: true,
+                            position: 'bottom',
+                            offsetY: 0,
+                            showForSingleSeries: true,
+                            horizontalAlign: 'left',
+                            offsetY: 6,
+                            offsetX: 0,
+                            width: 450,
+                        },
+                        grid: {
+                            borderColor: "#fff",
+                            clipMarkers: false,
+                            xaxis: {
+                                lines: {
+                                    show: false
+                                }
+                            }
+                        },
+                        states: {
+                            normal: {
+                                filter: {
+                                    type: 'none',
+                                    value: 0,
+                                }
+                            },
+                            hover: {
+                                filter: {
+                                    type: 'darken',
+                                    value: 0.8,
+                                }
+                            },
+                            active: {
+                                allowMultipleDataPointsSelection: true,
+                                filter: {
+                                    type: 'none',
+                                    value: 1,
+                                }
+                            },
+                        },
+
+
+                    };
+
+                    var chart = new ApexCharts(document.querySelector("#chart"), options);
+                    chart.render();
+                    </script>
+                    <div style="display: flex; margin-bottom: 10px;justify-content: center;align-items: flex-end;">
+                        <div><label>Protocol Stake</label><br><input type="text" placeholder="ProtocolStake" value="" id="ProtocolStake"></div>
+                        <div><label>Distribution Balance</label><br><input type="text" placeholder="DistributionBalance" value="" id="DistributionBalance">
+                        </div>
+                        <div><label>Distributed Balance</label><br><input type="text" placeholder="DistributedBalance" value="" id="DistributedBalance">
+                        </div>
+                        <div><label>Reserves</label><br><input type="text" placeholder="Reserves" value="" id="Reserves">
+                        </div>
+                        <div><label>Cash</label><br><input type="text" placeholder="Cash" value="" id="Cash">
+                        </div>
+                        <button onclick="rerender()">Submit</button>
+                    </div>
+                    
+                </div>
+                <div class="card">
+                    <div class="kn-wrapper">
+                        <div class="kn">
+                            <div style="flex-wrap: nowrap;">1,200 <span style="font-size: 12px;">ABC</span></div>$1,200
+                        </div>
+                        <div id="chart2"></div>
+                    </div>
+                    <script>
+                    // Sample data for the bar chart
+                    var chartData2 = {
+
+                        series: [{
+                                name: 'Protocol stake',
+                                group: 1,
+                                data: [{
+                                    x: 'Protocol stake',
+                                    y: 90,
+
+                                }]
+                            },
+                            {
+                                name: 'Distribution balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distribution balance',
+                                    y: 410
+                                }]
+                            },
+                            {
+                                name: 'Distributied balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distributied balance2',
+                                    y: 700
+                                }]
+                            },
+                            {
+                                name: '',
+                                group: 3,
+                                data: [{
+                                    x: '',
+                                    y: 0
+                                }]
+                            },
+                            {
+                                name: 'Reserves',
+                                group: 2,
+                                data: [{
+                                    x: 'Protocol stake',
+                                    y: 1200
+                                }]
+                            },
+                            {
+                                name: 'Cash',
+                                group: 2,
+                                data: [{
+                                    x: 'Protocol stake',
+                                    y: 100
+                                }]
+                            },
+                        ],
+                        xaxis: {
+                            categories: ['']
+                        }
+                    };
+
+                    // Create a bar chart
+                    var options2 = {
+                        annotations: {
+                            xaxis: [{
+                                    x: 90,
+                                    x2: 120,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EF4444",
+                                    borderColor: "#EC4899",
+                                    opacity: 0.15,
+                                    offsetX: 0,
+                                    offsetY: -21,
+                                    width: '30%',
+                                    label: {
+                                        borderColor: "#EF4444",
+                                        borderWidth: 1,
+                                        text: "1",
+                                        textAnchor: "middle",
+                                        orientation: "horizontal",
+                                        position: "bottom",
+                                        offsetX: 0,
+                                        offsetY: -35,
+                                        style: {
+                                            background: "#EF4444",
+                                            color: "#fff",
+                                            fontSize: "11px",
+                                            cssClass: "",
+                                            padding: { left: 5, right: 5, top: 2, bottom: 2 }
+                                        }
+                                    }
+                                },
+                                {
+                                    x: 1200,
+                                    x2: null,
+                                    strokeDashArray: 3,
+                                    fillColor: "#c2c2c2",
+                                    borderColor: "#6B7280",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: 0,
+
+                                },
+                                {
+                                    x: 1000,
+                                    x2: 1003,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EC4899",
+                                    borderColor: "#EC4899",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: -25,
+                                },
+                                {
+                                    x: 1000,
+                                    x2: 1300,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EF4444",
+                                    borderColor: "#EC4899",
+                                    opacity: 0.15,
+                                    offsetX: 0,
+                                    offsetY: -21,
+                                    width: '30%',
+                                    label: {
+                                        borderColor: "#EF4444",
+                                        borderWidth: 1,
+                                        text: "2",
+                                        textAnchor: "middle",
+                                        orientation: "horizontal",
+                                        position: "bottom",
+                                        offsetX: 0,
+                                        offsetY: -35,
+                                        style: {
+                                            background: "#EF4444",
+                                            color: "#fff",
+                                            fontSize: "11px",
+                                            cssClass: "",
+                                            padding: { left: 5, right: 5, top: 2, bottom: 2 }
+                                        }
+                                    }
+                                },
+                                {
+                                    x: 100,
+                                    x2: 101,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EC4899",
+                                    borderColor: "#EC4899",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: -21,
+                                },
+                            ],
+
+                        },
+                        chart: {
+                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
+                            type: 'bar',
+                            stacked: true,
+                            height: 190,
+                            toolbar: {
+                                autoSelected: "pan",
+                                show: false,
+                            }
+                        },
+                        tooltip: {
+                            followCursor: true,
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                                barHeight: '80%',
+                            },
+                        },
+                        fill: {
+                            opacity: 1,
+                        },
+                        xaxis: {
+                            categories: chartData2.xaxis.categories,
+                            tickAmount: 4,
+                            max: 1300,
+                            axisBorder: {
+                                show: true,
+                                height: 0,
+                            },
+                            labels: {
+                                style: {
+                                    fontSize: '10px',
+                                    colors: '#ccc',
+                                }
+                            }
+                        },
+                        series: chartData2.series,
+                        colors: ['#EC4899', '#38BDF8', '#3B82F6', '#fff', '#16A34A', '#F1F5F9'],
+                        legend: {
+                            show: true,
+                            position: 'bottom',
+                            offsetY: 0,
+                            showForSingleSeries: true,
+                            horizontalAlign: 'left',
+                            offsetY: 6,
+                            offsetX: 0,
+                            width: 450,
+                        },
+                        grid: {
+                            borderColor: "#fff",
+                            clipMarkers: false,
+                            xaxis: {
+                                lines: {
+                                    show: false
+                                }
+                            }
+                        },
+                        states: {
+                            normal: {
+                                filter: {
+                                    type: 'none',
+                                    value: 0,
+                                }
+                            },
+                            hover: {
+                                filter: {
+                                    type: 'darken',
+                                    value: 0.8,
+                                }
+                            },
+                            active: {
+                                allowMultipleDataPointsSelection: false,
+                                filter: {
+                                    type: 'none',
+                                    value: 1,
+                                }
+                            },
+                        }
+                    };
+
+                    var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+                    chart2.render();
+                    </script>
+                </div>
+                <div class="card">
+                    <div class="kn-wrapper">
+                        <div class="kn">
+                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">ABC</span></div>$900
+                        </div>
+                        <div id="chart3"></div>
+                    </div>
+                    <script>
+                    // Sample data for the bar chart
+                    var chartData3 = {
+
+                        series: [{
+                                name: 'Protocol stake',
+                                group: 1,
+                                data: [{
+                                    x: 'Protocol stake',
+                                    y: 100,
+
+                                }]
+                            },
+                            {
+                                name: 'Distribution balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distribution balance',
+                                    y: 400
+                                }]
+                            },
+                            {
+                                name: 'Distributied balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distributied balance',
+                                    y: 500
+                                }]
+                            },
+                            {
+                                name: '',
+                                group: 3,
+                                data: [{
+                                    x: '',
+                                    y: 0
+                                }]
+                            },
+                            {
+                                name: 'Reserves',
+                                group: 2,
+                                data: [{
+                                    x: 'Reserves',
+                                    y: 900
+                                }]
+                            },
+                            {
+                                name: 'Cash',
+                                group: 2,
+                                data: [{
+                                    x: 'Cash',
+                                    y: 0
+                                }]
+                            },
+
+
+                        ],
+                        xaxis: {
+                            categories: ['']
+                        }
+                    };
+
+                    // Create a bar chart
+                    var options3 = {
+                        annotations: {
+                            xaxis: [
+
+
+
+                                {
+                                    x: 900,
+                                    x2: null,
+                                    strokeDashArray: 3,
+                                    fillColor: "#c2c2c2",
+                                    borderColor: "#6B7280",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: 0,
+
+                                },
+
+
+
+                                {
+                                    x: 900,
+                                    x2: 1000,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EF4444",
+                                    borderColor: "#EC4899",
+                                    opacity: 0.15,
+                                    offsetX: 0,
+                                    offsetY: 45,
+                                    width: '30%',
+                                    label: {
+                                        borderColor: "#EF4444",
+                                        borderWidth: 1,
+                                        text: "1",
+                                        textAnchor: "middle",
+                                        orientation: "horizontal",
+                                        position: "bottom",
+                                        offsetX: 0,
+                                        offsetY: 0,
+                                        style: {
+                                            background: "#EF4444",
+                                            color: "#fff",
+                                            fontSize: "11px",
+                                            cssClass: "",
+                                            padding: { left: 5, right: 5, top: 2, bottom: 2 }
+                                        }
+                                    }
+                                },
+                                {
+                                    x: 100,
+                                    x2: 101,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EC4899",
+                                    borderColor: "#EC4899",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: -21,
+                                },
+
+                            ],
+
+                        },
+                        chart: {
+                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
+                            type: 'bar',
+                            stacked: true,
+                            height: 190,
+
+                            toolbar: {
+                                autoSelected: "pan",
+                                show: false,
+                            }
+
+                        },
+                        tooltip: {
+                            followCursor: true,
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+
+                        plotOptions: {
+
+                            bar: {
+                                horizontal: true,
+                                barHeight: '80%',
+
+                            },
+
+                        },
+                        fill: {
+                            opacity: 1,
+                        },
+                        xaxis: {
+                            categories: chartData3.xaxis.categories,
+                            tickAmount: 4,
+                            max: 1000,
+                            axisBorder: {
+                                show: true,
+                                height: 0,
+                            },
+                            labels: {
+                                style: {
+                                    fontSize: '10px',
+                                    colors: '#ccc',
+                                }
+                            }
+
+                        },
+                        series: chartData3.series,
+                        colors: ['#EC4899', '#38BDF8', '#3B82F6', '#fff', '#16A34A', '#F1F5F9'],
+                        legend: {
+                            show: true,
+                            position: 'bottom',
+                            offsetY: 0,
+                            showForSingleSeries: true,
+                            horizontalAlign: 'left',
+                            offsetY: 6,
+                            offsetX: 0,
+                            width: 450,
+
+                        },
+                        grid: {
+                            borderColor: "#fff",
+                            clipMarkers: false,
+                            xaxis: {
+                                lines: {
+                                    show: false
+                                }
+                            }
+                        },
+                        states: {
+                            normal: {
+                                filter: {
+                                    type: 'none',
+                                    value: 0,
+                                }
+                            },
+                            hover: {
+                                filter: {
+                                    type: 'darken',
+                                    value: 0.8,
+                                }
+                            },
+                            active: {
+                                allowMultipleDataPointsSelection: false,
+                                filter: {
+                                    type: 'none',
+                                    value: 1,
+                                }
+                            },
+                        }
+
+                    };
+
+                    var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+                    chart3.render();
+                    </script>
+                </div>
+                <div class="card">
+                    <div class="kn-wrapper">
+                        <div class="kn">
+                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">ABC</span></div>$1,000
+                        </div>
+                        <div id="chart4"></div>
+                    </div>
+                    <script>
+                    // Sample data for the bar chart
+                    var chartData4 = {
+
+                        series: [{
+                                name: 'Protocol stake',
+                                group: 1,
+                                data: [{
+                                    x: 'Protocol stake',
+                                    y: 100,
+
+                                }]
+                            },
+                            {
+                                name: 'Distribution balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distribution balance',
+                                    y: 400
+                                }]
+                            },
+                            {
+                                name: 'Distributied balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distributied balance',
+                                    y: 500
+                                }]
+                            },
+                            {
+                                name: '',
+                                group: 3,
+                                data: [{
+                                    x: '',
+                                    y: 0
+                                }]
+                            },
+                            {
+                                name: 'Reserves',
+                                group: 2,
+                                data: [{
+                                    x: 'Reserves',
+                                    y: 1000
+                                }]
+                            },
+                            {
+                                name: 'Cash',
+                                group: 2,
+                                data: [{
+                                    x: 'Cash',
+                                    y: 0
+                                }]
+                            },
+
+
+                        ],
+                        xaxis: {
+                            categories: ['']
+                        }
+                    };
+
+                    // Create a bar chart
+                    var options4 = {
+                        annotations: {
+                            xaxis: [
+
+
+
+                                {
+                                    x: 1000,
+                                    x2: null,
+                                    strokeDashArray: 3,
+                                    fillColor: "#c2c2c2",
+                                    borderColor: "#6B7280",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: 0,
+
+                                },
+                                {
+                                    x: 100,
+                                    x2: 101,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EC4899",
+                                    borderColor: "#EC4899",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: -21,
+                                },
+
+
+
+
+
+                            ],
+
+                        },
+                        chart: {
+                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
+                            type: 'bar',
+                            stacked: true,
+                            height: 190,
+
+                            toolbar: {
+                                autoSelected: "pan",
+                                show: false,
+                            }
+
+                        },
+                        tooltip: {
+                            followCursor: true,
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+
+                        plotOptions: {
+
+                            bar: {
+                                horizontal: true,
+                                barHeight: '80%',
+
+                            },
+
+                        },
+                        fill: {
+                            opacity: 1,
+                        },
+                        xaxis: {
+                            categories: chartData4.xaxis.categories,
+                            tickAmount: 4,
+                            max: 1000,
+                            axisBorder: {
+                                show: true,
+                                height: 0,
+                            },
+                            labels: {
+                                style: {
+                                    fontSize: '10px',
+                                    colors: '#ccc',
+                                }
+                            }
+
+                        },
+                        series: chartData4.series,
+                        colors: ['#EC4899', '#38BDF8', '#3B82F6', '#fff', '#16A34A', '#F1F5F9'],
+                        legend: {
+                            show: true,
+                            position: 'bottom',
+                            offsetY: 0,
+                            showForSingleSeries: true,
+                            horizontalAlign: 'left',
+                            offsetY: 6,
+                            offsetX: 0,
+                            width: 450,
+
+                        },
+                        grid: {
+                            borderColor: "#fff",
+                            clipMarkers: false,
+                            xaxis: {
+                                lines: {
+                                    show: false
+                                }
+                            }
+                        },
+                        states: {
+                            normal: {
+                                filter: {
+                                    type: 'none',
+                                    value: 0,
+                                }
+                            },
+                            hover: {
+                                filter: {
+                                    type: 'darken',
+                                    value: 0.8,
+                                }
+                            },
+                            active: {
+                                allowMultipleDataPointsSelection: false,
+                                filter: {
+                                    type: 'none',
+                                    value: 1,
+                                }
+                            },
+                        }
+
+                    };
+
+                    var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
+                    chart4.render();
+                    </script>
+                </div>
+            </div>
+</body>
+
+</html>
+</body>
+
+</html>
