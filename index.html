@@ -220,6 +220,530 @@
         </div>
         <div style="width: 85%; margin-left: 250px;">
             <div style="display:flex;flex-direction: column;">
+
+
+                <br><br><br><br>
+
+                <center>Issuer: MS1 Chart concepts</center>
+                <br><br>
+
+                <div class="card">
+                    <div class="kn-wrapper">
+                        <div class="kn">
+                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">ABC</span></div>$1,000
+                        </div>
+                        <div id="chartIssuerSimple1"></div>
+                    </div>
+                    <script>
+                    // Sample data for the bar chart
+                    var chartDataIssuerSimple1 = {
+
+                        series: [{
+                                name: 'Distribution balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distribution balance',
+                                    y: 400
+                                }]
+                            },
+                            {
+                                name: 'Distributied balance',
+                                group: 1,
+                                data: [{
+                                    x: 'Distributied balance',
+                                    y: 500
+                                }]
+                            },
+                            {
+                                name: '',
+                                group: 3,
+                                data: [{
+                                    x: '',
+                                    y: 0
+                                }]
+                            },
+                            {
+                                name: 'Reserves',
+                                group: 2,
+                                data: [{
+                                    x: 'Reserves',
+                                    y: 1000
+                                }]
+                            },
+                            {
+                                name: 'Cash',
+                                group: 2,
+                                data: [{
+                                    x: 'Cash',
+                                    y: 100
+                                }]
+                            },
+
+
+                        ],
+                        xaxis: {
+                            categories: ['']
+                        }
+                    };
+
+                    // Create a bar chart
+                    var optionsIssuerSimple1 = {
+                        annotations: {
+                            xaxis: [
+
+
+
+                                {
+                                    x: 900,
+                                    x2: 1000,
+                                    strokeDashArray: 0,
+                                    fillColor: "#CBD5E1",
+                                    borderColor: "#6B7280",
+                                    opacity: 0.23,
+                                    offsetX: 0,
+                                    offsetY: 0,
+                                    
+
+                                },
+                                {
+                                    x: 900,
+                                    x2: 901,
+                                    strokeDashArray: 0,
+                                    fillColor: "#EF4444",
+                                    borderColor: "#EF4444",
+                                    opacity: 1,
+                                    offsetX: 0,
+                                    offsetY: 0,
+                                },
+                               
+
+
+
+
+                            ],
+
+                        },
+                        chart: {
+                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
+                            type: 'bar',
+                            stacked: true,
+                            height: 190,
+                            width: 640,
+
+                            toolbar: {
+                                autoSelected: "pan",
+                                show: false,
+                            }
+
+                        },
+                        tooltip: {
+                            followCursor: true,
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+
+                        plotOptions: {
+
+                            bar: {
+                                horizontal: true,
+                                barHeight: '80%',
+
+                            },
+
+                        },
+                        fill: {
+                            opacity: 1,
+                        },
+                        xaxis: {
+                            categories: chartDataIssuerSimple1.xaxis.categories,
+                            tickAmount: 4,
+                            max: 1100,
+                            axisBorder: {
+                                show: true,
+                                height: 0,
+                            },
+                            labels: {
+                                style: {
+                                    fontSize: '10px',
+                                    colors: '#ccc',
+                                }
+                            }
+
+                        },
+                        series: chartDataIssuerSimple1.series,
+                        colors: ['#38BDF8', '#3B82F6', '#fff', '#16A34A', '#F1F5F9'],
+                        legend: {
+                            show: true,
+                            position: 'bottom',
+                            offsetY: 0,
+                            showForSingleSeries: true,
+                            horizontalAlign: 'left',
+                            offsetY: 6,
+                            offsetX: 0,
+                            width: 350,
+
+                        },
+                        grid: {
+                            borderColor: "#fff",
+                            clipMarkers: false,
+                            xaxis: {
+                                lines: {
+                                    show: false
+                                }
+                            }
+                        },
+                        states: {
+                            normal: {
+                                filter: {
+                                    type: 'none',
+                                    value: 0,
+                                }
+                            },
+                            hover: {
+                                filter: {
+                                    type: 'darken',
+                                    value: 0.8,
+                                }
+                            },
+                            active: {
+                                allowMultipleDataPointsSelection: false,
+                                filter: {
+                                    type: 'none',
+                                    value: 1,
+                                }
+                            },
+                        }
+
+                    };
+
+                    var chartIssuerSimple1 = new ApexCharts(document.querySelector("#chartIssuerSimple1"), optionsIssuerSimple1);
+                    chartIssuerSimple1.render();
+                    </script>
+                </div>
+                <div class="card">
+                    <div class="kn-wrapper" style="flex-direction: column;">
+                        <div id="chart5"></div>
+                        <div id="chart6"></div>
+                    </div>
+                    <script>
+                    // Sample data for the bar chart
+                    var chartData5 = {
+
+                        series: [{
+                            name: 'Maturity',
+                            data: [130057.00, 117587.00, 62117.00, 258923.00, 76629.00, 135454.00]
+                        }],
+                        xaxis: {
+                            categories: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan 23', 'Feb', 'Mar', 'Apr'],
+                        }
+                    };
+
+                    // Create a bar chart
+                    var options5 = {
+
+                        chart: {
+                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
+                            type: 'bar',
+                            stacked: true,
+                            height: 200,
+                            width: 845,
+                            parentHeightOffset: 0,
+                            background: '#F8FAFC',
+
+                            toolbar: {
+                                autoSelected: "pan",
+                                show: false,
+                            }
+
+                        },
+                        tooltip: {
+                            followCursor: true,
+
+
+                            y: {
+                                formatter: function(val, index) {
+                                    return '$' + val.toLocaleString('en-US');
+                                },
+                            },
+
+
+
+
+
+
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+
+                        plotOptions: {
+
+                            bar: {
+                                horizontal: false,
+                                columnWidth: '20%',
+                            },
+                        },
+                        fill: {
+                            opacity: 1,
+                        },
+                        xaxis: {
+                            categories: chartData5.xaxis.categories,
+
+                            axisTicks: {
+                                show: false,
+                            },
+
+
+                            axisBorder: {
+                                show: true,
+                                height: 1,
+                                offsetY: -1,
+                            },
+                            labels: {
+                                show: false,
+
+                            }
+
+                        },
+                        yaxis: {
+
+
+                            tickAmount: 3,
+
+
+                            labels: {
+                                formatter: function(val, index) {
+                                    return '$' + val.toLocaleString('en-US');
+                                },
+                                minWidth: 40,
+                                style: {
+                                    fontSize: '10px',
+                                    colors: '#ccc',
+                                }
+                            }
+
+                        },
+                        series: chartData5.series,
+                        colors: ['#EC4899', '#38BDF8'],
+                        legend: {
+                            show: false,
+                            position: 'bottom',
+                            offsetY: 0,
+                            showForSingleSeries: true,
+                            horizontalAlign: 'left',
+                            offsetY: 0,
+                            offsetX: 0,
+                            width: 600,
+
+                        },
+                        grid: {
+                            borderColor: "#CBD5E1",
+                            clipMarkers: false,
+                            strokeDashArray: 2,
+                            position: 'back',
+                            xaxis: {
+                                lines: {
+                                    show: false
+                                }
+                            },
+                            yaxis: {
+                                lines: {
+                                    show: true
+                                }
+                            }
+                        },
+                        states: {
+                            normal: {
+                                filter: {
+                                    type: 'none',
+                                    value: 0,
+                                }
+                            },
+                            hover: {
+                                filter: {
+                                    type: 'darken',
+                                    value: 0.8,
+                                }
+                            },
+                            active: {
+                                allowMultipleDataPointsSelection: false,
+                                filter: {
+                                    type: 'none',
+                                    value: 1,
+                                }
+                            },
+                        }
+
+                    };
+
+                    var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+                    chart5.render();
+                    </script>
+                    <script>
+                    // Sample data for the bar chart
+                    var chartData6 = {
+
+                        series: [{
+                            name: 'Coupon',
+                            data: [0, 785.00, 388.00, 1752.00, 489.00, 571.00, 252.00]
+                        }],
+                        xaxis: {
+                            categories: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan 23', 'Feb', 'Mar', 'Apr'],
+                        }
+                    };
+
+                    // Create a bar chart
+                    var options6 = {
+
+                        chart: {
+                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
+                            type: 'bar',
+                            stacked: true,
+                            height: 150,
+                            width: 845,
+                            parentHeightOffset: 0,
+
+
+                            toolbar: {
+                                autoSelected: "pan",
+                                show: false,
+                            }
+
+                        },
+                        tooltip: {
+                            followCursor: true,
+
+                            y: {
+                                formatter: function(val, index) {
+                                    return '$' + val.toLocaleString('en-US');
+                                },
+                            },
+
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+
+                        plotOptions: {
+
+                            bar: {
+                                horizontal: false,
+
+                                columnWidth: '20%',
+
+
+                            },
+
+                        },
+                        fill: {
+                            opacity: 1,
+                        },
+                        xaxis: {
+                            categories: chartData6.xaxis.categories,
+
+
+                            axisBorder: {
+                                show: true,
+                                height: 1,
+                                offsetY: -1,
+                            },
+                            labels: {
+                                style: {
+                                    fontSize: '10px',
+                                    colors: '#ccc',
+                                }
+                            }
+
+                        },
+                        yaxis: {
+                            tickAmount: 2,
+
+
+
+                            labels: {
+                                formatter: function(val, index) {
+                                    return '$' + val.toLocaleString('en-US');
+                                },
+                                minWidth: 40,
+                                style: {
+                                    fontSize: '10px',
+                                    colors: '#ccc',
+                                }
+                            }
+
+                        },
+                        series: chartData6.series,
+                        colors: ['#38BDF8'],
+                        legend: {
+                            show: true,
+                            position: 'bottom',
+                            offsetY: 0,
+                            showForSingleSeries: true,
+                            horizontalAlign: 'left',
+                            offsetY: 6,
+                            offsetX: 0,
+                            width: 600,
+                            customLegendItems: ['Maturity', 'Coupon'],
+                            markers: {
+
+                                fillColors: ['#EC4899', '#38BDF8'],
+
+                            },
+
+                        },
+                        grid: {
+                            borderColor: "#CBD5E1",
+                            clipMarkers: false,
+                            strokeDashArray: 2,
+                            position: 'back',
+                            xaxis: {
+                                lines: {
+                                    show: false
+                                }
+                            },
+                            yaxis: {
+                                lines: {
+                                    show: true
+                                }
+                            }
+                        },
+                        states: {
+                            normal: {
+                                filter: {
+                                    type: 'none',
+                                    value: 0,
+                                }
+                            },
+                            hover: {
+                                filter: {
+                                    type: 'darken',
+                                    value: 0.8,
+                                }
+                            },
+                            active: {
+                                allowMultipleDataPointsSelection: false,
+                                filter: {
+                                    type: 'none',
+                                    value: 1,
+                                }
+                            },
+                        }
+
+                    };
+
+                    var chart6 = new ApexCharts(document.querySelector("#chart6"), options6);
+                    chart6.render();
+                    </script>
+                </div>
+
+
+                <br><br><br>
+
+                <center>Issuer: MS2 Chart concepts</center>
+
+
+
                 <div class="card">
                     <div class="kn-wrapper">
                         <div class="kn">
@@ -1196,328 +1720,14 @@
                     chart4.render();
                     </script>
                 </div>
-                <div class="card">
-                    <div class="kn-wrapper" style="flex-direction: column;">
-                        <div id="chart5"></div>
-                        <div id="chart6"></div>
-                    </div>
-                    <script>
-                    // Sample data for the bar chart
-                    var chartData5 = {
 
-                        series: [{
-                            name: 'Maturity',
-                            data: [130057.00, 117587.00, 62117.00, 258923.00, 76629.00, 135454.00]
-                        }],
-                        xaxis: {
-                            categories: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan 23', 'Feb', 'Mar', 'Apr'],
-                        }
-                    };
-
-                    // Create a bar chart
-                    var options5 = {
-
-                        chart: {
-                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
-                            type: 'bar',
-                            stacked: true,
-                            height: 200,
-                            width: 800,
-                            parentHeightOffset: 0,
-                            background: '#F8FAFC',
-
-                            toolbar: {
-                                autoSelected: "pan",
-                                show: false,
-                            }
-
-                        },
-                        tooltip: {
-                            followCursor: true,
-
-
-                            y: {
-                                formatter: function(val, index) {
-                                    return '$' + val.toLocaleString('en-US');
-                                },
-                            },
-
-
-
-
-
-
-                        },
-                        dataLabels: {
-                            enabled: false,
-                        },
-
-                        plotOptions: {
-
-                            bar: {
-                                horizontal: false,
-                                columnWidth: '20%',
-                            },
-                        },
-                        fill: {
-                            opacity: 1,
-                        },
-                        xaxis: {
-                            categories: chartData5.xaxis.categories,
-
-                            axisTicks: {
-                                show: false,
-                            },
-
-
-                            axisBorder: {
-                                show: true,
-                                height: 1,
-                                offsetY: -1,
-                            },
-                            labels: {
-                                show: false,
-
-                            }
-
-                        },
-                        yaxis: {
-
-
-                            tickAmount: 3,
-
-
-                            labels: {
-                                formatter: function(val, index) {
-                                    return val.toLocaleString('en-US');
-                                },
-                                minWidth: 40,
-                                style: {
-                                    fontSize: '10px',
-                                    colors: '#ccc',
-                                }
-                            }
-
-                        },
-                        series: chartData5.series,
-                        colors: ['#EC4899', '#38BDF8'],
-                        legend: {
-                            show: false,
-                            position: 'bottom',
-                            offsetY: 0,
-                            showForSingleSeries: true,
-                            horizontalAlign: 'left',
-                            offsetY: 0,
-                            offsetX: 0,
-                            width: 600,
-
-                        },
-                        grid: {
-                            borderColor: "#CBD5E1",
-                            clipMarkers: false,
-                            strokeDashArray: 2,
-                            position: 'back',
-                            xaxis: {
-                                lines: {
-                                    show: false
-                                }
-                            },
-                            yaxis: {
-                                lines: {
-                                    show: true
-                                }
-                            }
-                        },
-                        states: {
-                            normal: {
-                                filter: {
-                                    type: 'none',
-                                    value: 0,
-                                }
-                            },
-                            hover: {
-                                filter: {
-                                    type: 'darken',
-                                    value: 0.8,
-                                }
-                            },
-                            active: {
-                                allowMultipleDataPointsSelection: false,
-                                filter: {
-                                    type: 'none',
-                                    value: 1,
-                                }
-                            },
-                        }
-
-                    };
-
-                    var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
-                    chart5.render();
-                    </script>
-                    <script>
-                    // Sample data for the bar chart
-                    var chartData6 = {
-
-                        series: [{
-                            name: 'Coupon',
-                            data: [0, 785.00, 388.00, 1752.00, 489.00, 571.00, 252.00]
-                        }],
-                        xaxis: {
-                            categories: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan 23', 'Feb', 'Mar', 'Apr'],
-                        }
-                    };
-
-                    // Create a bar chart
-                    var options6 = {
-
-                        chart: {
-                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
-                            type: 'bar',
-                            stacked: true,
-                            height: 150,
-                            width: 800,
-                            parentHeightOffset: 0,
-
-
-                            toolbar: {
-                                autoSelected: "pan",
-                                show: false,
-                            }
-
-                        },
-                        tooltip: {
-                            followCursor: true,
-
-
-                            y: {
-                                formatter: function(val, index) {
-                                    return '$' + val.toLocaleString('en-US');
-                                },
-                            },
-
-
-
-
-
-
-                        },
-                        dataLabels: {
-                            enabled: false,
-                        },
-
-                        plotOptions: {
-
-                            bar: {
-                                horizontal: false,
-
-                                columnWidth: '20%',
-
-
-                            },
-
-                        },
-                        fill: {
-                            opacity: 1,
-                        },
-                        xaxis: {
-                            categories: chartData6.xaxis.categories,
-
-
-                            axisBorder: {
-                                show: true,
-                                height: 1,
-                                offsetY: -1,
-                            },
-                            labels: {
-                                style: {
-                                    fontSize: '10px',
-                                    colors: '#ccc',
-                                }
-                            }
-
-                        },
-                        yaxis: {
-                            tickAmount: 2,
-
-
-
-                            labels: {
-                                formatter: function(val, index) {
-                                    return val.toLocaleString('en-US');
-                                },
-                                minWidth: 40,
-                                style: {
-                                    fontSize: '10px',
-                                    colors: '#ccc',
-                                }
-                            }
-
-                        },
-                        series: chartData6.series,
-                        colors: ['#38BDF8'],
-                        legend: {
-                            show: true,
-                            position: 'bottom',
-                            offsetY: 0,
-                            showForSingleSeries: true,
-                            horizontalAlign: 'left',
-                            offsetY: 6,
-                            offsetX: 0,
-                            width: 600,
-                            customLegendItems: ['Maturity', 'Coupon'],
-                            markers: {
-
-                                fillColors: ['#EC4899', '#38BDF8'],
-
-                            },
-
-                        },
-                        grid: {
-                            borderColor: "#CBD5E1",
-                            clipMarkers: false,
-                            strokeDashArray: 2,
-                            position: 'back',
-                            xaxis: {
-                                lines: {
-                                    show: false
-                                }
-                            },
-                            yaxis: {
-                                lines: {
-                                    show: true
-                                }
-                            }
-                        },
-                        states: {
-                            normal: {
-                                filter: {
-                                    type: 'none',
-                                    value: 0,
-                                }
-                            },
-                            hover: {
-                                filter: {
-                                    type: 'darken',
-                                    value: 0.8,
-                                }
-                            },
-                            active: {
-                                allowMultipleDataPointsSelection: false,
-                                filter: {
-                                    type: 'none',
-                                    value: 1,
-                                }
-                            },
-                        }
-
-                    };
-
-                    var chart6 = new ApexCharts(document.querySelector("#chart6"), options6);
-                    chart6.render();
-                    </script>
-                </div>
             </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
 </body>
 
 </html>
