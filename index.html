@@ -225,11 +225,10 @@
                 <br><br><br><br>
 
                 <center>Issuer: MS1 Chart concepts</center>
-                <br><br>
 
                 <div class="card">
                     <div class="kn-wrapper">
-                        <div class="kn">
+                        <div class="kn" style="margin-top:15px;">
                             <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">M</span></div>$1,000
                         </div>
                         <div id="chartIssuerSimple1"></div>
@@ -290,7 +289,6 @@
                     var optionsIssuerSimple1 = {
                         annotations: {
                             xaxis: [
-
                                 {
                                     x: 900,
                                     x2: 1000,
@@ -300,8 +298,6 @@
                                     opacity: 0.23,
                                     offsetX: 0,
                                     offsetY: 0,
-                                    
-
                                 },
                                 {
                                     x: 900,
@@ -323,7 +319,6 @@
                             stacked: true,
                             height: 190,
                             width: 640,
-
                             toolbar: {
                                 autoSelected: "pan",
                                 show: false,
@@ -338,7 +333,6 @@
                         },
 
                         plotOptions: {
-
                             bar: {
                                 horizontal: true,
                                 barHeight: '80%',
@@ -382,7 +376,6 @@
                               onItemHover: {
                                   highlightDataSeries: true
                               },
-
                         },
                         grid: {
                             borderColor: "#fff",
@@ -429,7 +422,6 @@
                     <script>
                     // Sample data for the bar chart
                     var chartData5 = {
-
                         series: [{
                             name: 'Maturity',
                             data: [130057.00, 117587.00, 62117.00, 258923.00, 76629.00, 135454.00]
@@ -450,27 +442,18 @@
                             width: 845,
                             parentHeightOffset: 0,
                             background: '#F8FAFC',
-
                             toolbar: {
                                 autoSelected: "pan",
                                 show: false,
                             }
-
                         },
                         tooltip: {
                             followCursor: true,
-
-
                             y: {
                                 formatter: function(val, index) {
                                     return '$' + val.toLocaleString('en-US');
                                 },
                             },
-
-
-
-
-
 
                         },
                         dataLabels: {
@@ -493,8 +476,6 @@
                             axisTicks: {
                                 show: false,
                             },
-
-
                             axisBorder: {
                                 show: true,
                                 height: 1,
