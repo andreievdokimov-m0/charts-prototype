@@ -230,7 +230,7 @@
                 <div class="card">
                     <div class="kn-wrapper">
                         <div class="kn">
-                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">ABC</span></div>$1,000
+                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">M</span></div>$1,000
                         </div>
                         <div id="chartIssuerSimple1"></div>
                     </div>
@@ -291,8 +291,6 @@
                         annotations: {
                             xaxis: [
 
-
-
                                 {
                                     x: 900,
                                     x2: 1000,
@@ -315,10 +313,6 @@
                                     offsetX: 0,
                                     offsetY: 0,
                                 },
-                               
-
-
-
 
                             ],
 
@@ -382,6 +376,12 @@
                             offsetY: 6,
                             offsetX: 0,
                             width: 350,
+                            onItemClick: {
+                                  toggleDataSeries: false
+                              },
+                              onItemHover: {
+                                  highlightDataSeries: true
+                              },
 
                         },
                         grid: {
@@ -535,6 +535,12 @@
                             offsetY: 0,
                             offsetX: 0,
                             width: 600,
+                            onItemClick: {
+                                  toggleDataSeries: false
+                              },
+                              onItemHover: {
+                                  highlightDataSeries: true
+                              },
 
                         },
                         grid: {
@@ -629,7 +635,6 @@
 
                             bar: {
                                 horizontal: false,
-
                                 columnWidth: '20%',
 
 
@@ -641,7 +646,6 @@
                         },
                         xaxis: {
                             categories: chartData6.xaxis.categories,
-
 
                             axisBorder: {
                                 show: true,
@@ -658,9 +662,6 @@
                         },
                         yaxis: {
                             tickAmount: 2,
-
-
-
                             labels: {
                                 formatter: function(val, index) {
                                     return '$' + val.toLocaleString('en-US');
@@ -747,7 +748,7 @@
                 <div class="card">
                     <div class="kn-wrapper">
                         <div class="kn">
-                            <div style="flex-wrap: nowrap;">1,200 <span style="font-size: 12px;">ABC</span></div>$1,300
+                            <div style="flex-wrap: nowrap;">1,200 <span style="font-size: 12px;">M</span></div>$1,300
                         </div>
                         <div id="chart"></div>
                     </div>
@@ -972,14 +973,12 @@
                                 enabled: true,
 
                             },
-
                             labels: {
                                 style: {
                                     fontSize: '10px',
                                     colors: '#ccc',
                                 }
                             }
-
                         },
                         series: chartData.series,
 
@@ -993,6 +992,12 @@
                             offsetY: 6,
                             offsetX: 0,
                             width: 450,
+                            onItemClick: {
+                                  toggleDataSeries: false
+                              },
+                              onItemHover: {
+                                  highlightDataSeries: true
+                              },
                         },
                         grid: {
                             borderColor: "#fff",
@@ -1047,7 +1052,7 @@
                 <div class="card">
                     <div class="kn-wrapper">
                         <div class="kn">
-                            <div style="flex-wrap: nowrap;">1,200 <span style="font-size: 12px;">ABC</span></div>$1,200
+                            <div style="flex-wrap: nowrap;">1,200 <span style="font-size: 12px;">M</span></div>$1,200
                         </div>
                         <div id="chart2"></div>
                     </div>
@@ -1254,6 +1259,12 @@
                             offsetY: 6,
                             offsetX: 0,
                             width: 450,
+                            onItemClick: {
+                                  toggleDataSeries: false
+                              },
+                              onItemHover: {
+                                  highlightDataSeries: true
+                              },
                         },
                         grid: {
                             borderColor: "#fff",
@@ -1294,7 +1305,7 @@
                 <div class="card">
                     <div class="kn-wrapper">
                         <div class="kn">
-                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">ABC</span></div>$900
+                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">M</span></div>$900
                         </div>
                         <div id="chart3"></div>
                     </div>
@@ -1480,6 +1491,12 @@
                             offsetY: 6,
                             offsetX: 0,
                             width: 450,
+                            onItemClick: {
+                                  toggleDataSeries: false
+                              },
+                              onItemHover: {
+                                  highlightDataSeries: true
+                              },
 
                         },
                         grid: {
@@ -1522,7 +1539,7 @@
                 <div class="card">
                     <div class="kn-wrapper">
                         <div class="kn">
-                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">ABC</span></div>$1,000
+                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">M</span></div>$1,000
                         </div>
                         <div id="chart4"></div>
                     </div>
@@ -1681,6 +1698,12 @@
                             offsetY: 6,
                             offsetX: 0,
                             width: 450,
+                            onItemClick: {
+                                  toggleDataSeries: false
+                              },
+                              onItemHover: {
+                                  highlightDataSeries: true
+                              },
 
                         },
                         grid: {
