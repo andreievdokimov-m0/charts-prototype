@@ -652,8 +652,17 @@
                             background: '#F8FAFC',
                             toolbar: {
                                 autoSelected: "pan",
-                                show: false,
+                                show: true,
+                                tools: {
+                                  download: true,
+                                  selection: true,
+                                  zoom: true,
+                                  zoomin: true,
+                                  zoomout: true,
+                                  pan: true,
+                                },
                             },
+                            
                             
                         },
                         tooltip: {
@@ -687,6 +696,7 @@
                         },
                         xaxis: {
                             //categories: chartData5.xaxis.categories,
+                            min: new Date(),
                             //range: 100000000000,
 
                             axisTicks: {
@@ -1024,6 +1034,7 @@
                             toolbar: {
                                 autoSelected: "pan",
                                 show: false,
+
                             },
 
                         },
@@ -1064,7 +1075,7 @@
                             //categories: chartData6.xaxis.categories,
 
                             tickAmount: 10,
-                            //min: new Date('2022-01-05').getTime(),
+                            min: new Date(),
                             //max: new Date('2024-04-05').getTime(),
                             //range: 100000000000,
                             axisBorder: {
