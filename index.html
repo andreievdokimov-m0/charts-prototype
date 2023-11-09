@@ -193,6 +193,12 @@
 
         chart.render();
     }
+
+    const options = {
+        month: 'short',
+        day: 'numeric',
+    };
+
     </script>
 </head>
 
@@ -1073,7 +1079,7 @@
 
                                 },
                                 formatter: function (value, timestamp) {
-                                return new Date(value).toLocaleDateString() // The formatter function overrides format property
+                                return new Date(value).toLocaleDateString(undefined, options) // The formatter function overrides format property
                                 }, 
 
                             }
