@@ -194,11 +194,15 @@
         chart.render();
     }
 
-    const options = {
+    const date_options_dd_mon = {
         month: 'short',
         day: 'numeric',
     };
-
+    const date_options_dd_month_year = {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+    };
     </script>
 </head>
 
@@ -425,6 +429,7 @@
                         // Sample data for the bar chart
                     var chartData5 = {
                         series: [{
+                            name: 'Maturity',
                             data: [
                                     { y: 96239.00,
                                       x: new Date("2023-11-08").getTime(),
@@ -654,7 +659,7 @@
                                 autoSelected: "pan",
                                 show: true,
                                 tools: {
-                                  download: true,
+                                  download: false,
                                   selection: true,
                                   zoom: true,
                                   zoomin: true,
@@ -675,7 +680,7 @@
                             },
                             x: {
                               formatter: function (value, timestamp) {
-                                return new Date(value).toLocaleDateString() // The formatter function overrides format property
+                                return new Date(value).toLocaleDateString(undefined, date_options_dd_month_year) // The formatter function overrides format property
                                 }, 
                             },
 
@@ -697,7 +702,7 @@
                         xaxis: {
                             //categories: chartData5.xaxis.categories,
                             min: new Date(),
-                            //range: 100000000000,
+                            range: undefined,
 
                             axisTicks: {
                                 show: false,
@@ -791,9 +796,9 @@
                     };
 
                     var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+
                     chart5.render();
-                    </script>
-                    <script>
+
                         // Sample data for the bar chart
                     var chartData6 = {
 
@@ -1049,7 +1054,7 @@
                             },
                             x: {
                               formatter: function (value, timestamp) {
-                                return new Date(value).toLocaleDateString() // The formatter function overrides format property
+                                return new Date(value).toLocaleDateString(undefined, date_options_dd_month_year) // The formatter function overrides format property
                                 }, 
                             },
 
@@ -1077,7 +1082,7 @@
                             tickAmount: 10,
                             min: new Date(),
                             //max: new Date('2024-04-05').getTime(),
-                            //range: 100000000000,
+                            range: undefined,
                             axisBorder: {
                                 show: true,
                                 height: 1,
@@ -1090,7 +1095,7 @@
 
                                 },
                                 formatter: function (value, timestamp) {
-                                return new Date(value).toLocaleDateString(undefined, options) // The formatter function overrides format property
+                                return new Date(value).toLocaleDateString(undefined, date_options_dd_mon) // The formatter function overrides format property
                                 }, 
 
                             }
@@ -1172,7 +1177,14 @@
                     };
 
                     var chart6 = new ApexCharts(document.querySelector("#chart6"), options6);
+                    //chart6.zoomX(new Date(), undefined);
                     chart6.render();
+
+
+                    let start = new Date();
+                    let end = new Date(start);
+                    chart5.zoomX(new Date().getTime(),end.setMonth(end.getMonth() + 3));
+
                     </script>
                 </div>
                 <br><br><br>
