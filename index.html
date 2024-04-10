@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -234,9 +235,7 @@
                 <center>Issuer: MS1 Chart concepts</center>
                 <div class="card">
                     <div class="kn-wrapper">
-                        <div class="kn" style="margin-top:15px;">
-                            <div style="flex-wrap: nowrap;">1,000 <span style="font-size: 12px;">M</span></div>$1,000
-                        </div>
+                        
                         <div id="chartIssuerSimple1"></div>
                     </div>
                     <script>
@@ -245,49 +244,23 @@
 
                         series: [{
                                 name: 'Distribution balance',
-                                group: 1,
-                                data: [{
-                                    x: 'Distribution balance',
-                                    y: 400
-                                }]
+                                data: [400, 0]
                             },
                             {
-                                name: 'Distributied balance',
-                                group: 1,
-                                data: [{
-                                    x: 'Distributied balance',
-                                    y: 500
-                                }]
-                            },
-                            {
-                                name: '',
-                                group: 3,
-                                data: [{
-                                    x: '',
-                                    y: 0
-                                }]
+                                name: 'Distributed balance',
+                                data: [500, 0]
                             },
                             {
                                 name: 'Reserves',
-                                group: 2,
-                                data: [{
-                                    x: 'Reserves',
-                                    y: 1000
-                                }]
+                                data: [0, 1000]
                             },
                             {
                                 name: 'Cash',
-                                group: 2,
-                                data: [{
-                                    x: 'Cash',
-                                    y: 100
-                                }]
+                                data: [0, 100]
                             },
-
-
                         ],
                         xaxis: {
-                            categories: ['']
+                            categories: ['Owed M', 'Reserves']
                         }
                     };
 
@@ -295,16 +268,6 @@
                     var optionsIssuerSimple1 = {
                         annotations: {
                             xaxis: [
-                                {
-                                    x: 900,
-                                    x2: 1000,
-                                    strokeDashArray: 0,
-                                    fillColor: "#CBD5E1",
-                                    borderColor: "#6B7280",
-                                    opacity: 0.23,
-                                    offsetX: 0,
-                                    offsetY: 0,
-                                },
                                 {
                                     x: 900,
                                     x2: 901,
@@ -337,14 +300,11 @@
                         dataLabels: {
                             enabled: false,
                         },
-
                         plotOptions: {
                             bar: {
                                 horizontal: true,
-                                barHeight: '80%',
-
+                                barHeight: '60%',
                             },
-
                         },
                         fill: {
                             opacity: 1,
@@ -353,6 +313,7 @@
                             categories: chartDataIssuerSimple1.xaxis.categories,
                             tickAmount: 4,
                             max: 1100,
+                            min: 0,
                             axisBorder: {
                                 show: true,
                                 height: 0,
@@ -366,7 +327,7 @@
 
                         },
                         series: chartDataIssuerSimple1.series,
-                        colors: ['#38BDF8', '#3B82F6', '#fff', '#16A34A', '#F1F5F9'],
+                        colors: ['#38BDF8', '#3B82F6', '#16A34A', '#F1F5F9'],
                         legend: {
                             show: true,
                             position: 'bottom',
@@ -418,6 +379,149 @@
 
                     var chartIssuerSimple1 = new ApexCharts(document.querySelector("#chartIssuerSimple1"), optionsIssuerSimple1);
                     chartIssuerSimple1.render();
+                    </script>
+                </div>
+                <div class="card">
+                    <div class="kn-wrapper">
+                        
+                        <div id="chartIssuerSimple1x"></div>
+                    </div>
+                    <script>
+                        // Sample data for the bar chart
+                    var chartDataIssuerSimple1x = {
+
+                        series: [{
+                                name: 'Confirmed purchase orders',
+                                data: [400, 0, 0, 0],
+
+                            },
+                            {
+                                name: 'Pending purchase orders',
+                                data: [500, 0, 0, 0],
+                            },
+                            {
+                                name: 'Current balance, $',
+                                data: [0, 100, 0, 0],
+                            },
+                            {
+                                name: 'Confirmed redeem orders',
+                                data: [0, 0, 240, 0],
+
+                            },
+                            {
+                                name: 'Pending redeem orders',
+                                data: [0, 0, 400, 0],
+                            },
+                            {
+                                name: 'Current balance, M',
+                                data: [0, 0, 0, 190],
+                            },
+                        ],
+                        xaxis: {
+                            categories: ['Purchase orders, M', 'Current balance, M', 'Redeem orders, $', 'Current balance, $']
+                        }
+                    };
+
+                    // Create a bar chart
+                    var optionsIssuerSimple1x = {
+                        
+                        chart: {
+                            fontFamily: 'Inter, Roboto, Arial, sans-serif',
+                            type: 'bar',
+                            stacked: true,
+                            height: 240,
+                            width: 640,
+                            toolbar: {
+                                autoSelected: "pan",
+                                show: false,
+                            }
+
+                        },
+                        tooltip: {
+                            followCursor: true,
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                                barHeight: '70%',
+                            },
+                        },
+                        fill: {
+                            opacity: 1,
+                        },
+                        xaxis: {
+                            categories: chartDataIssuerSimple1x.xaxis.categories,
+                            tickAmount: 4,
+                            max: 1100,
+                            min: 0,
+                            axisBorder: {
+                                show: true,
+                                height: 0,
+                            },
+                            labels: {
+                                style: {
+                                    fontSize: '10px',
+                                    colors: '#ccc',
+                                }
+                            }
+
+                        },
+                        series: chartDataIssuerSimple1x.series,
+                        colors: ['#3982C2', '#91D1F8', '#E3E8EF', '#4CA154', '#07F7BD', '#DBF0DD'],
+                        legend: {
+                            show: true,
+                            position: 'bottom',
+                            offsetY: 0,
+                            showForSingleSeries: true,
+                            horizontalAlign: 'left',
+                            offsetY: 6,
+                            offsetX: 0,
+                            
+                            onItemClick: {
+                                  toggleDataSeries: false
+                              },
+                              onItemHover: {
+                                  highlightDataSeries: true
+                              },
+                        },
+                        grid: {
+                            borderColor: "#fff",
+                            clipMarkers: false,
+                            xaxis: {
+                                lines: {
+                                    show: false
+                                }
+                            }
+                        },
+                        states: {
+                            normal: {
+                                filter: {
+                                    type: 'none',
+                                    value: 0,
+                                }
+                            },
+                            hover: {
+                                filter: {
+                                    type: 'darken',
+                                    value: 0.8,
+                                }
+                            },
+                            active: {
+                                allowMultipleDataPointsSelection: false,
+                                filter: {
+                                    type: 'none',
+                                    value: 1,
+                                }
+                            },
+                        }
+
+                    };
+
+                    var chartIssuerSimple1x = new ApexCharts(document.querySelector("#chartIssuerSimple1x"), optionsIssuerSimple1x);
+                    chartIssuerSimple1x.render();
                     </script>
                 </div>
                 <div class="card">
@@ -1406,6 +1510,7 @@
                             categories: chartData.xaxis.categories,
                             tickAmount: 4,
                             max: 1300,
+                            min: 0,
                             axisBorder: {
                                 show: true,
                                 height: 0,
@@ -1681,6 +1786,7 @@
                             categories: chartData2.xaxis.categories,
                             tickAmount: 4,
                             max: 1300,
+                            min: 0,
                             axisBorder: {
                                 show: true,
                                 height: 0,
@@ -1912,6 +2018,7 @@
                             categories: chartData3.xaxis.categories,
                             tickAmount: 4,
                             max: 1000,
+                            min: 0,
                             axisBorder: {
                                 show: true,
                                 height: 0,
@@ -2119,6 +2226,7 @@
                             categories: chartData4.xaxis.categories,
                             tickAmount: 4,
                             max: 1000,
+                            min: 0,
                             axisBorder: {
                                 show: true,
                                 height: 0,
